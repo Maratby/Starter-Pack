@@ -497,38 +497,24 @@ SMODS.Joker {
 }
 
 SMODS.Joker {
-	key = "joker_spawner", ---changed jimbo to joker to be more in line with the actual joker
+	key = "joker_spawner",
 	rarity = 2,
 	cost = 8,
 	unlocked = true,
 	discovered = true,
-	blueprint_compat = true,
+	blueprint_compat = false,
 	eternal_compat = true,
-	perishable_compat = true,
+	perishable_compat = false,
 	rental_compat = true,
 	atlas = "StarterPackJokers",
 	attributes = { "joker" },
 	pos = { x = 0, y = 2 },
-	---This joker has no stored values, so it doesn't need the config section
-	---it does however need the info_queue for jimbo, so I get to talk about that now
 	loc_vars = function(self, info_queue, card)
-		---info_queue is a table which manages extra info boxes on Jokers. These are used for Jokers with editions and other information, such as the fool showing you what tarot it will make
-		---the # is lua's length modifier, so #table is an integer which represents the length of the table, aka how many values are in it
-		---THE # SYMBOL IS CALLED A HASH BY THE WAY NOT A HASHTAG I WILL :START_DISSOLVE() ON THIS HILL
-		---A HASHTAG IS A HASH PLUS A TAG IF YOU REMOVE THE TAG YOU ARE LEFT WITH JUST A HASH SYMBOL
-		---#deep is a hashtag, # is the hash, deep is the tag.
-		info_queue[#info_queue + 1] = G.P_CENTERS.j_joker
-		---square brackets reference table index, so info_queue[2] references index 2
-		---using [#table+1] appends our index queue onto the table without interfering with or overwriting the others
-		---G.P_CENTERS is the index for object centers. Putting an object's key after this gets its center, which can be put into info_queue to display the name and effect of ANY card.
-		---info_queue can do custom popup box descriptions too, but we don't need those yet.
 	end,
 
 	calculate = function(self, card, context)
-		---context.setting_blind runs when blind is selected
 		if context.setting_blind then
-			---hover over a function's name when it is called to see the comments that were written near its definition!
-			StarterPack_Cardmaker(false, false, true, false, "j_joker")
+			SMODS.add_card{ key = "j_joker", stickers = { "perishable"}, force_stickers = { "perishable" }}
 		end
 	end
 }
