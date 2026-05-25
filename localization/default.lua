@@ -136,14 +136,15 @@ return {
             j_stpck_artistsrendition = {
                 name = "Artist's Rendition",
                 text = {
-                    'NOT IMPLEMENTED YET'
+                    'First played card gives',
+					'{C:mult}+#1#{} Mult'
                 }
             },
 
             j_stpck_tntl = {
                 name = "Trying Not to Laugh",
                 text = {
-                    "{C:mult}#1#{} Mult",
+                    "{C:mult}+#+1#{} Mult",
                     "{C:mult}-3{} for each {C:attention}Joker{} card owned",
                     "{C:inactive}(Currently {C:red}+#2#{C:inactive} Mult)"
                 }
@@ -156,16 +157,18 @@ return {
                     'non-face Card in your hand'
                 }
             },
-            j_stpck_erchiushorror = {
-                name = "Erchius Horror",
+            j_stpck_lowbudget = {
+                name = "Low Budget Joker",
                 text = {
-                    'NOT IMPLEMENTED YET'
+                    'If you have less than {C:money}$#2#{}',
+                    'this Joker gives {C:mult}+#1#{} Mult'
                 }
             },
-            j_stpck_snowgravejoker = {
-                name = "Snowgrave",
+            j_stpck_robloxclown = {
+                name = "Roblox Clown",
                 text = {
-                    'NOT IMPLEMENTED YET'
+                    'Earn {C:money}$1{} for each scored card',
+                    'Set money to {C:attention}$0{} after defeating a Boss Blind'
                 }
             },
             j_stpck_jimbosinferno = {
@@ -176,22 +179,25 @@ return {
 					'Cards destroyed by Joker grant {C:mult}+10{} Mult'
                 }
             },
-            j_stpck_spaceshiplicense = {
-                name = "Spaceship License",
+            j_stpck_teenytinyjoker = {
+                name = "Teeny Tiny Joker",
                 text = {
-                    'NOT IMPLEMENTED YET'
+                    'Each {C:attention}Ace,{} {C:attention}2,{} {C:attention}3,{} and {C:attention}4{}',
+					'played grant {C:mult}+#+1#{} Mult'
                 }
             },
-            j_stpck_steamhappy = {
-                name = ":steamhappy:",
+            j_stpck_cdjoker = {
+                name = "CD",
                 text = {
-                    ':D'
+                    ''
                 }
             },
             j_stpck_realisticjoker = {
                 name = "Realistic Joker",
                 text = {
-                    'NOT IMPLEMENTED YET'
+                    "If played hand contains one face card and no other cards",
+                    "That card permanently gains {C:mult}#+1#{} Mult" 
+
                 }
             },
             j_stpck_deepblues = {
@@ -207,8 +213,8 @@ return {
                     'NOT IMPLEMENTED YET'
                 }
             },
-            j_stpck_jokerbot = {
-                name = "JokerBot",
+            j_stpck_phantomjoker = {
+                name = "Phantom Joker",
                 text = {
                     'NOT IMPLEMENTED YET'
                 }

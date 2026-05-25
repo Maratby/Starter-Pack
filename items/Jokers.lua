@@ -7,16 +7,19 @@ SMODS.Joker {
     cost = 2,
     discovered = true,
     config = { extra = { mult = 4 } },
-
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.mult } }
     end,
+       calculate = function(self, card, context)
+        if context.individual
+        and context.cardarea == G.play
+        and context.other_card == context.scoring_hand[1] then
 
-    calculate = function(self, card, context)
-        if context.joker_main then
-            return { mult = card.ability.extra.mult }
+            return {
+                mult = card.ability.extra.mult
+            }
         end
-    end
+    end,
 }
 
 SMODS.Joker {
@@ -66,22 +69,27 @@ SMODS.Joker {
 }
 
 SMODS.Joker {
-    key = 'erchiushorror',
+    key = 'lowbudget',
     atlas = 'StarterPackJokers',
-    pos = { x = 4, y = 4 },
-    rarity = 3,
+    pos = { x = 7, y = 1 },
+    rarity = 2,
     blueprint_compat = true,
     cost = 2,
     discovered = true,
-    config = { extra = { mult = 4 } },
+    config = { extra = { dollars = 10, mult = 15 } },
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.mult } }
+        return {
+            vars = { card.ability.extra.mult, card.ability.extra.dollars }
+        }
     end,
 
     calculate = function(self, card, context)
-        if context.joker_main then
-            return { mult = card.ability.extra.mult }
+        if context.joker_main and
+           G.GAME.dollars <= card.ability.extra.dollars then
+            return {
+                mult = card.ability.extra.mult
+            }
         end
     end
 }
@@ -164,27 +172,6 @@ end,
 }
 
 SMODS.Joker {
-    key = 'jokerbot',
-    atlas = 'StarterPackJokers',
-    pos = { x = 8, y = 4 },
-    rarity = 1,
-    blueprint_compat = true,
-    cost = 2,
-    discovered = true,
-    config = { extra = { mult = 4 } },
-
-    loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.mult } }
-    end,
-
-    calculate = function(self, card, context)
-        if context.joker_main then
-            return { mult = card.ability.extra.mult }
-        end
-    end
-}
-
-SMODS.Joker {
     key = 'offputting',
     atlas = 'StarterPackJokers',
     pos = { x = 3, y = 4 },
@@ -212,85 +199,82 @@ SMODS.Joker {
 }
 
 SMODS.Joker {
-    key = 'steamhappy',
-    atlas = 'StarterPackJokers',
-    pos = { x = 9, y = 3},
-    rarity = 2,
-    blueprint_compat = true,
-    cost = 2,
-    discovered = true,
-    config = { extra = { mult = 4 } },
-
-    loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.mult } }
-    end,
-
-    calculate = function(self, card, context)
-        if context.joker_main then
-            return { mult = card.ability.extra.mult }
-        end
-    end
-}
-
-SMODS.Joker {
     key = 'realisticjoker',
     atlas = 'StarterPackJokers',
     pos = { x = 6, y = 4 },
-    rarity = 1,
-    blueprint_compat = true,
-    cost = 2,
-    discovered = true,
-    config = { extra = { mult = 4 } },
-
-    loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.mult } }
-    end,
-
-    calculate = function(self, card, context)
-        if context.joker_main then
-            return { mult = card.ability.extra.mult }
-        end
-    end
-}
-
-SMODS.Joker {
-    key = 'snowgravejoker',
-    atlas = 'StarterPackJokers',
-    pos = { x = 0, y = 5 },
-    rarity = 3,
-    blueprint_compat = true,
-    cost = 2,
-    discovered = true,
-    config = { extra = { mult = 4 } },
-
-    loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.mult } }
-    end,
-
-    calculate = function(self, card, context)
-        if context.joker_main then
-            return { mult = card.ability.extra.mult }
-        end
-    end
-}
-
-SMODS.Joker {
-    key = 'spaceshiplicense',
-    atlas = 'StarterPackJokers',
-    pos = { x = 4, y = 5 },
     rarity = 2,
     blueprint_compat = true,
     cost = 2,
     discovered = true,
-    config = { extra = { mult = 4 } },
+    config = { extra = { mult = 3 } },
 
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.mult } }
     end,
 
     calculate = function(self, card, context)
-        if context.joker_main then
-            return { mult = card.ability.extra.mult }
+        if context.individual
+        and context.cardarea == G.play
+        and #G.play.cards == 1
+        and context.other_card:is_face() then
+
+            context.other_card.ability.perma_mult =
+                (context.other_card.ability.perma_mult or 0)
+                + card.ability.extra.mult
+
+            return {
+                message = localize('k_upgrade_ex'),
+                colour = G.C.MULT
+            }
+        end
+    end
+}
+
+SMODS.Joker {
+    key = 'robloxclown',
+    atlas = 'StarterPackJokers',
+    pos = { x = 0, y = 5 },
+    rarity = 2,
+    blueprint_compat = true,
+    cost = 2,
+    discovered = true,
+    config = { extra = { odds = 2, dollars = 1 } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.dollars } }
+    end,
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play then
+            G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.dollars
+            return {
+                dollars = card.ability.extra.dollars,
+                func = function()
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            G.GAME.dollar_buffer = 0
+                            return true
+                        end
+                    }))
+                end
+            }
+        end
+        if context.end_of_round
+            and context.main_eval
+            and not context.blueprint
+            and context.beat_boss
+            and not context.game_over then
+            ease_dollars(-G.GAME.dollars)
+            return {
+                message = "Oof!",
+                colour = G.C.RED,
+                func = function()
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            play_sound('stpck_oof', 1, 1)
+                            return true
+                        end
+                    }))
+                end
+            }
         end
     end
 }
@@ -304,17 +288,17 @@ SMODS.Joker {
     cost = 2,
     discovered = true,
     config = { extra = { mult = 15 } },
-
+    loc_vars = function(self, info_queue, card)
+        local jokers = (G.jokers and G.jokers.cards) and (#G.jokers.cards - #SMODS.find_card('j_stpck_tntl')) or 0
+        return {
+            vars = { card.ability.extra.mult, jokers * 3 }
+        }
+    end,
     calculate = function(self, card, context)
         if context.joker_main then
-            local joker_count = 0
-            if G.jokers and G.jokers.cards then
-                joker_count = #G.jokers.cards - #SMODS.find_card('j_stpck_tntl')
-            end
+            local jokers = (G.jokers and G.jokers.cards) and (#G.jokers.cards - #SMODS.find_card('j_stpck_tntl')) or 0
 
-            return {
-                mult = card.ability.extra.mult - (joker_count * 3)
-            }
+            return { mult = card.ability.extra.mult - (jokers * 3) }
         end
     end
 }
