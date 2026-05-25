@@ -70,33 +70,6 @@ to_number = to_number or function(num)
 	return num
 end
 
-
----I absolutely despise SMODS.add_card personally and will use this to spawn cards instead.
----You could totally just use SMODS.add_card if you prefer it, though.
----enter an edition in _edition to set edition, enter true or false in each sticker to set them
-function StarterPack_Cardmaker(_edition, eternal, perishable, rental, _key)
-	local _card = SMODS.create_card({
-		area = G.jokers,
-		key = _key
-	})
-	if _edition == "e_negative" or _edition == "negative" then
-		_card:set_edition({ negative = true }, nil)
-		_card.edition.negative = true
-	end
-	if eternal then
-		_card.ability.eternal = true
-	end
-	if perishable then
-		_card.ability.perishable = true
-	end
-	if rental then
-		_card.ability.rental = true
-	end
-	_card:add_to_deck()
-	G.jokers:emplace(_card)
-	return _card
-end
-
 ---Deck key finder, returns key of deck you are using
 function StarterPack_Deck_Check()
 	if Galdur and Galdur.config.use and Galdur.run_setup.choices.deck then
