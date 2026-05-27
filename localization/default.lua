@@ -110,16 +110,11 @@ return {
 					"run each hand",
 				},
 			},
-			["j_stpck_poorlydrawn"] = {
-				["name"] = "Poorly Drawn",
+			["j_stpck_chaosquartet"] = {
+				["name"] = "Chaos Quartet",
 				["text"] = {
-					'NOT IMPLEMENTED YET',
-				},
-			},
-			["j_stpck_jpg"] = {
-				["name"] = "joker.jpg",
-				["text"] = {
-					'NOT IMPLEMENTED YET',
+					'If hand contains a {C:attention}four-suit Four of a Kind{}',
+					'it gains {C:mult}x#1#{} Mult and {C:mult}+#2#{} Mult'
 				},
 			},
             j_stpck_greentext = {
@@ -186,12 +181,6 @@ return {
 					'played grant {C:mult}+#+1#{} Mult'
                 }
             },
-            j_stpck_cdjoker = {
-                name = "CD",
-                text = {
-                    ''
-                }
-            },
             j_stpck_realisticjoker = {
                 name = "Realistic Joker",
                 text = {
@@ -205,30 +194,6 @@ return {
                 text = {
                     'Playing a hand with a King, Queen, and Ace',
 					'Grants {C:mult} x2.5{} Mult'
-                }
-            },
-            j_stpck_cloverjoker = {
-                name = "Clover",
-                text = {
-                    'NOT IMPLEMENTED YET'
-                }
-            },
-            j_stpck_phantomjoker = {
-                name = "Phantom Joker",
-                text = {
-                    'NOT IMPLEMENTED YET'
-                }
-            },
-            j_stpck_wonderflower = {
-                name = "Wonder Flower",
-                text = {
-                    'NOT IMPLEMENTED YET'
-                }
-            },
-            j_stpck_xray = {
-                name = "X-Ray",
-                text = {
-                    'NOT IMPLEMENTED YET'
                 }
             },
             j_stpck_warioapparition = {

@@ -858,3 +858,111 @@ SMODS.Joker {
 		end
 	end,
 }
+
+SMODS.Joker {
+    key = 'dadaism',
+    atlas = 'StarterPackJokers',
+    pos = { x = 9, y = 3 },
+
+    rarity = 3,
+    blueprint_compat = true,
+    cost = 2,
+    discovered = true,
+
+    config = {
+        extra = {
+            xmult = 2
+        }
+    },
+
+    calculate = function(self, card, context)
+        if context.joker_main then
+
+            local aceflag = false
+            local kingflag = false
+            local queenflag = false
+
+            local cards = context.full_hand or {}
+
+            for _, value in ipairs(cards) do
+                local id = value:get_id()
+
+                if id == 14 then
+                    aceflag = true
+                elseif id == 13 then
+                    kingflag = true
+                elseif id == 12 then
+                    queenflag = true
+                end
+            end
+
+            if aceflag and kingflag and queenflag then
+                return {
+                    xmult = card.ability.extra.xmult
+                }
+            end
+        end
+    end
+}
+
+SMODS.Joker {
+    key = 'chaosquartet',
+    atlas = 'StarterPackJokers',
+    pos = { x = 6, y = 5 },
+
+    rarity = 3,
+    blueprint_compat = true,
+    cost = 2,
+    discovered = true,
+
+    config = { extra = { Xmult = 2, mult = 15 } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.Xmult, card.ability.extra.mult } }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main then
+            local suits = {
+                ['Hearts'] = 0,
+                ['Diamonds'] = 0,
+                ['Spades'] = 0,
+                ['Clubs'] = 0
+            }
+            for i = 1, #context.scoring_hand do
+                if not SMODS.has_any_suit(context.scoring_hand[i]) then
+                    if context.scoring_hand[i]:is_suit('Hearts', true) and suits["Hearts"] == 0 then
+                        suits["Hearts"] = suits["Hearts"] + 1
+                    elseif context.scoring_hand[i]:is_suit('Diamonds', true) and suits["Diamonds"] == 0 then
+                        suits["Diamonds"] = suits["Diamonds"] + 1
+                    elseif context.scoring_hand[i]:is_suit('Spades', true) and suits["Spades"] == 0 then
+                        suits["Spades"] = suits["Spades"] + 1
+                    elseif context.scoring_hand[i]:is_suit('Clubs', true) and suits["Clubs"] == 0 then
+                        suits["Clubs"] = suits["Clubs"] + 1
+                    end
+                end
+            end
+            for i = 1, #context.scoring_hand do
+                if SMODS.has_any_suit(context.scoring_hand[i]) then
+                    if context.scoring_hand[i]:is_suit('Hearts') and suits["Hearts"] == 0 then
+                        suits["Hearts"] = suits["Hearts"] + 1
+                    elseif context.scoring_hand[i]:is_suit('Diamonds') and suits["Diamonds"] == 0 then
+                        suits["Diamonds"] = suits["Diamonds"] + 1
+                    elseif context.scoring_hand[i]:is_suit('Spades') and suits["Spades"] == 0 then
+                        suits["Spades"] = suits["Spades"] + 1
+                    elseif context.scoring_hand[i]:is_suit('Clubs') and suits["Clubs"] == 0 then
+                        suits["Clubs"] = suits["Clubs"] + 1
+                    end
+                end
+            end
+            if suits["Hearts"] > 0 and
+                suits["Diamonds"] > 0 and
+                suits["Spades"] > 0 and
+                suits["Clubs"] > 0 and
+				context.poker_hands["Four of a Kind"] then
+                return {
+                    xmult = card.ability.extra.Xmult,
+					mult = card.ability.extra.mult
+                }
+            end
+        end
+    end,
+}
