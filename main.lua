@@ -38,6 +38,24 @@ SMODS.Sound({
 	pitch = 1,
 })
 
+SMODS.Sound({
+	key = "kirby-falling",
+	path = "kirby-falling.mp3", ---file name WITH THE CORRECT FILE EXTENSION!!! this routes to StarterPack/assets/sounds/...
+	pitch = 1,
+})
+
+SMODS.Sound({
+	key = "ytpsexerbitch1",
+	path = "ytpsexerbitch1.mp3", ---file name WITH THE CORRECT FILE EXTENSION!!! this routes to StarterPack/assets/sounds/...
+	pitch = 1,
+})
+
+SMODS.Sound({
+	key = "ytpsexerbitch2",
+	path = "ytpsexerbitch2.mp3", ---file name WITH THE CORRECT FILE EXTENSION!!! this routes to StarterPack/assets/sounds/...
+	pitch = 1,
+})
+
 
 
 ---most of these functions were copied from jokebox, they may prove useful or spark new ideas

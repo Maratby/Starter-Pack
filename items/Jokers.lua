@@ -966,3 +966,124 @@ SMODS.Joker {
         end
     end,
 }
+SMODS.Joker {
+    key = 'blurpleprint',
+    atlas = 'StarterPackJokers',
+    pos = { x = 5, y = 0 },
+    config = { extra = { repetitions = 2 } },
+    rarity = 1,
+    blueprint_compat = true,
+    cost = 4,
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.repetitions } }
+    end,
+
+    calculate = function(self, card, context)
+        if context.repetition
+        and context.cardarea == G.play
+        and context.other_card == context.scoring_hand[#context.scoring_hand] then
+            return {
+                repetitions = card.ability.extra.repetitions
+            }
+        end
+    end
+}
+
+SMODS.Joker {
+    key = 'sealedenvelope',
+    atlas = 'StarterPackJokers',
+    pos = { x = 4, y = 4 },
+    config = { extra = { repetitions = 1 } },
+    rarity = 2,
+    blueprint_compat = true,
+    cost = 4,
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.repetitions } }
+    end,
+
+    calculate = function(self, card, context)
+        if context.selling_self then
+            local seals = { "Red", "Blue", "Gold", "Purple" }
+
+            for i = 1, 4 do
+                local new_card = create_playing_card(nil, G.hand)
+
+                new_card:set_seal(
+                    pseudorandom_element(seals, pseudoseed('sealed_envelope' .. i)),
+                    true
+                )
+
+                new_card:add_to_deck()
+                G.deck.config.card_limit = G.deck.config.card_limit + 1
+                G.deck:emplace(new_card)
+            end
+        end
+    end
+}
+
+SMODS.Joker{
+    key = 'themartyr',
+    atlas = 'StarterPackJokers',
+    pos = { x = 5, y = 2 },
+    config = { extra = { chips = 175 } },
+    rarity = 2,
+    blueprint_compat = false,
+    cost = 4,
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.chips } }
+    end,
+
+    calculate = function(self, card, context)
+
+        if context.joker_main and G.GAME.blind and G.GAME.blind.boss and context.debuffed_hand then
+			
+
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    play_sound('stpck_kirby-falling', 1, 1)
+					play_sound('stpck_kaboom', 1, 1)
+					card:start_dissolve()
+                    return true
+                end
+            }))
+
+            return {
+                message = "AAAAAAAAAAAAAAAAAAAAAA",
+                colour = G.C.FILTER
+            }
+        end
+
+        if context.joker_main then
+            return {
+                chips = card.ability.extra.chips
+            }
+        end
+    end
+}
+
+SMODS.Joker {
+    key = "magnetar",
+    atlas = 'StarterPackJokers',
+    pos = { x = 8, y = 5 },
+    rarity = 1,
+    blueprint_compat = true,
+    cost = 2,
+    discovered = true,
+    --[[
+        Note: Unlike some vanilla Jokers that put values in card.ability, these examples will use card.ability.extra as it's best practice for modded Jokers, since card.ability is used for a lot of other values that might be accindentally written over.
+    ]]
+    config = { extra = { mult = 4 }, },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.mult } }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main then
+            return {
+                mult = card.ability.extra.mult
+            }
+        end
+    end
+}

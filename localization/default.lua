@@ -203,7 +203,59 @@ return {
 					'{C:money} $-5{} when Blind is selected'
 
                 }
-            }
-        }
+            },
+			j_stpck_blurpleprint = {
+                name = 'Blurpleprint',
+                text = {
+                    '{C:attention}Retrigger{} the right-most card',
+                    'in your scored hand twice'
+                }
+            },
+            j_stpck_sealedenvelope = {
+                name = 'Sealed Envelope',
+                text = {
+                    '{C:attention}Retrigger{} cards with {C:attention}Seals{}',
+                    'Sell this Joker to created 4 {C:attention}Sealed{} cards'
+                }
+            },
+            j_stpck_guardien04 = {
+                name = 'GUARDIEN04',
+                text = {
+                    'NOT IMPLEMENTED YET',
+                    '{C:inactive}{s:0.6}Do you still remember me?{}{}'
+                }
+        },
+		j_stpck_themartyr = {
+    name = 'The Martyr',
+    text = {
+        '{C:chips}+#1#{} Chips',
+        'Self-destructs when boss blind ability is activated'
     }
+},
+
+j_stpck_sighting = {
+    name = 'Sighting',
+    text = {
+        'NOT IMPLEMENTED YET',
+        '{C:inactive}{s:0.6}Beware the man with eyes of white.{}{}'
+    }
+},
+j_stpck_thisman = {
+    name = 'This Man',
+    text = {
+        'NOT IMPLEMENTED YET',
+        '{C:inactive}{s:0.6}Ever dream this man?{}{}'
+    }
+},
+
+j_stpck_magnetar = {
+    name = 'Magnetar',
+    text = {
+        'NOT IMPLEMENTED YET'
+    }
+},
+
+
+}
+	}
 }
