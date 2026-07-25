@@ -141,7 +141,8 @@ return {
                 text = {
                     "{C:mult}+#+1#{} Mult",
                     "{C:mult}-3{} for each {C:attention}Joker{} card owned",
-                    "{C:inactive}(Currently {C:red}+#2#{C:inactive} Mult)"
+					"{s:0.8}Trying Not to Laugh excluded",
+                    "{C:inactive}(Currently {C:red}#2#{C:inactive} Mult)",
                 }
             },
 

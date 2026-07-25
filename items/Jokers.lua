@@ -290,12 +290,21 @@ SMODS.Joker {
     config = { extra = { mult = 15 } },
     loc_vars = function(self, info_queue, card)
         local jokers = (G.jokers and G.jokers.cards) and (#G.jokers.cards - #SMODS.find_card('j_stpck_tntl')) or 0
+		---this code makes the plus only appear if the number is positive
+		---so it won't say +0 or +-3 or anything like that
+		local mult_val = card.ability.extra.mult - (jokers * 3)
+		local mult_text = mult_val
+		if mult_val > 0 then
+			--- .. is the symbol for concatenate which adds two strings together
+			---  "2" .. "1" = 21
+			mult_text = "+" .. tostring(mult_val)
+		end
         return {
-            vars = { card.ability.extra.mult, jokers * 3 }
+            vars = { card.ability.extra.mult, mult_text }
         }
     end,
     calculate = function(self, card, context)
-        if context.joker_main then
+        if context.joker_main and card.ability.extra.mult ~= 0 then
             local jokers = (G.jokers and G.jokers.cards) and (#G.jokers.cards - #SMODS.find_card('j_stpck_tntl')) or 0
 
             return { mult = card.ability.extra.mult - (jokers * 3) }
